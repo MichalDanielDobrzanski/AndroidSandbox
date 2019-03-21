@@ -1,14 +1,23 @@
 package gdg.androidtitlan.dagger2_demo.category.view.fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Arrays;
+
 import gdg.androidtitlan.dagger2_demo.R;
+
+import static gdg.androidtitlan.dagger2_demo.category.view.ActivityTwo.MY_PERMISSIONS_REQUEST_LOCATION;
 
 public class FragmentTwo extends Fragment {
 
@@ -30,6 +39,15 @@ public class FragmentTwo extends Fragment {
                         .commit();
             }
         });
+        Log.v("ME","Two onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.v("ME","requestPermissions");
+            ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION
+            );
+        }
     }
 
     public static FragmentTwo create() {

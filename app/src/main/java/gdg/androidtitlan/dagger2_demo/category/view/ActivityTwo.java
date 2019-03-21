@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import gdg.androidtitlan.dagger2_demo.R;
@@ -48,39 +50,39 @@ public class ActivityTwo extends BaseActivity {
                 .add(R.id.container, FragmentOne.create())
                 .commit();
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION
-            );
-        } else {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-//
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//                new AlertDialog.Builder(this)
-//                        .setTitle("Hey")
-//                        .setMessage("WANT THIS")
-//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                //Prompt the user once explanation has been shown
-//                                ActivityCompat.requestPermissions(ActivityTwo.this,
-//                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                                        MY_PERMISSIONS_REQUEST_LOCATION);
-//                            }
-//                        })
-//                        .create()
-//                        .show();
-        }
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(
+//                    this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                    MY_PERMISSIONS_REQUEST_LOCATION
+//            );
+//        } else {
+////            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+////                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+////
+////                // Show an explanation to the user *asynchronously* -- don't block
+////                // this thread waiting for the user's response! After the user
+////                // sees the explanation, try again to request the permission.
+////                new AlertDialog.Builder(this)
+////                        .setTitle("Hey")
+////                        .setMessage("WANT THIS")
+////                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+////                            @Override
+////                            public void onClick(DialogInterface dialogInterface, int i) {
+////                                //Prompt the user once explanation has been shown
+////                                ActivityCompat.requestPermissions(ActivityTwo.this,
+////                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+////                                        MY_PERMISSIONS_REQUEST_LOCATION);
+////                            }
+////                        })
+////                        .create()
+////                        .show();
+//        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.v("ME","onRequestPermissionsResult" + Arrays.toString(permissions));
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
             if (permissions.length == 1 &&
                     permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
@@ -91,5 +93,5 @@ public class ActivityTwo extends BaseActivity {
         }
     }
 
-    private final int MY_PERMISSIONS_REQUEST_LOCATION = 23;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 23;
 }
