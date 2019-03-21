@@ -50,6 +50,12 @@ public class FragmentTwo extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("ME","Two onResume");
+    }
+
     public static FragmentTwo create() {
         return new FragmentTwo();
     }

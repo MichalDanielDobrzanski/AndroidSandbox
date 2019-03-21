@@ -25,6 +25,12 @@ public class FragmentThree extends Fragment {
         Log.v("ME","Three onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("ME","Three onResume");
+    }
+
     public static FragmentThree create() {
         return new FragmentThree();
     }

@@ -34,6 +34,12 @@ public class FragmentOne extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("ME","One onResume");
+    }
+
     public static FragmentOne create() {
         return new FragmentOne();
     }
