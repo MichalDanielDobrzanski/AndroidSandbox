@@ -22,14 +22,17 @@ public class FragmentOne extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.v("ME","One onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
+        Log.v("ME", "One onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
+        Log.v("ME", "Ctx: " + getActivity().getApplicationContext());
+
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.container, FragmentTwo.create())
-                        .commit();
+                    .beginTransaction()
+                    .replace(R.id.container, FragmentTwo.create(), "TWO")
+                    .addToBackStack(null)
+                    .commit();
             }
         });
     }
@@ -37,7 +40,7 @@ public class FragmentOne extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.v("ME","One onResume");
+        Log.v("ME", "One onResume");
     }
 
     public static FragmentOne create() {

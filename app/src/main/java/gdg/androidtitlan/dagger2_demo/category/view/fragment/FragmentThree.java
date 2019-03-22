@@ -23,6 +23,7 @@ public class FragmentThree extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.v("ME","Three onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
+        Log.v("ME", "Ctx: " + getActivity().getApplicationContext());
     }
 
     @Override

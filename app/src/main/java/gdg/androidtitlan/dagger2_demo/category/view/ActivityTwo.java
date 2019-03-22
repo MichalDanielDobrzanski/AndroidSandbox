@@ -3,6 +3,7 @@ package gdg.androidtitlan.dagger2_demo.category.view;
 import android.Manifest;
 import android.app.Application;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -31,10 +32,10 @@ public class ActivityTwo extends BaseActivity {
     @Override
     protected void setupComponent(AppComponent appComponent) {
         DaggerActivityTwoComponent.builder()
-                .appComponent(appComponent)
-                .categoryModule(new CategoryModule(this))
-                .build()
-                .inject(this);
+            .appComponent(appComponent)
+            .categoryModule(new CategoryModule(this))
+            .build()
+            .inject(this);
     }
 
     @Override
@@ -42,13 +43,17 @@ public class ActivityTwo extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two);
 
-        Log.v("ME2", String.valueOf(simplePresenter.hashCode()));
-        Log.v("ME3", String.valueOf(app.hashCode()));
-
-        getSupportFragmentManager()
+        Log.v("ME2", "onCreate" + String.valueOf(simplePresenter.hashCode()));
+        Log.v("ME3", "onCreate" + String.valueOf(app.hashCode()));
+        if (savedInstanceState != null) {
+            Log.v("ME3", "savedInstanceState" + savedInstanceState.toString());
+        } else {
+            getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, FragmentOne.create())
+                .add(R.id.container, FragmentOne.create(), "ONE")
+                .addToBackStack(null)
                 .commit();
+        }
 
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(
@@ -81,12 +86,18 @@ public class ActivityTwo extends BaseActivity {
     }
 
     @Override
+    public void onConfigurationChanged(final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.v("ME", "onConfigurationChanged");
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.v("ME","onRequestPermissionsResult" + Arrays.toString(permissions));
+        Log.v("ME", "onRequestPermissionsResult" + Arrays.toString(permissions));
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
             if (permissions.length == 1 &&
-                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             } else {
                 // Permission was denied. Display an error message.
             }

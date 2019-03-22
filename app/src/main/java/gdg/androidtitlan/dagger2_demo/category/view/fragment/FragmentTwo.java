@@ -34,18 +34,21 @@ public class FragmentTwo extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.container, FragmentThree.create())
-                        .commit();
+                    .beginTransaction()
+                    .replace(R.id.container, FragmentThree.create(), "THREE")
+                    .addToBackStack(null)
+                    .commit();
             }
         });
-        Log.v("ME","Two onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
+        Log.v("ME", "Two onViewCreated, size=" + getActivity().getSupportFragmentManager().getFragments().size());
+        Log.v("ME", "Ctx: " + getActivity().getApplicationContext());
+
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.v("ME","requestPermissions");
+            Log.v("ME", "requestPermissions");
             ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION
+                requireActivity(),
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                MY_PERMISSIONS_REQUEST_LOCATION
             );
         }
     }
@@ -53,7 +56,7 @@ public class FragmentTwo extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.v("ME","Two onResume");
+        Log.v("ME", "Two onResume");
     }
 
     public static FragmentTwo create() {
